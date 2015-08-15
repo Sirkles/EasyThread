@@ -1,0 +1,1 @@
+The pthreads_win32 version that we use is at https://github.com/GerHobbelt/pthread-win32.
