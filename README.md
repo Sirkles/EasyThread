@@ -48,3 +48,12 @@ Source code for pthreads_win32 is provided.
 See EasyThreadExample for examples.
 
 There aren't many examples (only one :cry:), but there will be plenty more as the library is fleshed out and matures.
+
+## TODO:
+
+There is still work to do!
+
+* I need to make the API more error-proof by adding sanity-checks.
+* Add more examples!
+* Create tutorials on how multi-threading works.
+* Make EasyMutex.
