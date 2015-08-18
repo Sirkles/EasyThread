@@ -38,6 +38,7 @@
 
 #include <signal.h>
 #include <errno.h>
+#include <assert.h>
 
 #include <sstream>
 #include <chrono>
@@ -60,32 +61,37 @@ void EasyThread::setArgument(void* param)
 	this->param = param;
 }
 
-void* EasyThread::getArgument() const
+const void* EasyThread::getArgument() const
 {
 	return this->param;
 }
 
 void EasyThread::run()
 {
+	this->started = true;
+
 	int val = pthread_create(&this->threadID, NULL, function, param);
 
 	if (val != 0)
 	{
 		throw new ThreadCreationError(val);
 	}
-
-	this->started = true;
 }
 
-void EasyThread::terminate()
+void EasyThread::terminate(bool force)
 {
-	// TODO: Ensure thread is active.
-	pthread_cancel(this->threadID);
+	assert(this->isActive());
+
+	if (!force)
+		pthread_cancel(this->threadID);
+	else
+		pthread_kill(this->threadID, SIGTERM);
 }
 
 void EasyThread::wait()
 {
-	// TODO: Ensure thread is still active.
+	assert(this->isActive());
+
 	pthread_join(this->threadID, nullptr);
 }
 
@@ -93,7 +99,7 @@ void EasyThread::setName(std::string name)
 {
 	this->threadName = name;
 
-	// TODO: Ensure thread is active.
+	assert(this->isActive());
 
 #if _WIN32
 	// Windows doesn't have thread names natively, but the VS Debugger does though!

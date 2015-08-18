@@ -88,6 +88,8 @@
 #include <string>
 #include <exception>
 
+// Exceptions
+
 class EASYTHREAD_API ThreadCreationError : public std::exception
 {
 public:
@@ -102,6 +104,8 @@ private:
 	int errorCode;
 	const char* message;
 };
+
+// Class definition
 
 class EASYTHREAD_API EasyThread final
 {
@@ -140,11 +144,17 @@ public:
 	 */
 	void setFunction(void*(func)(void*));
 
-	//void(*getFunction())(void*);
-
+	/*
+	 * Sets the argument to passed into the function that the thread will execute.
+	 *
+	 * The parameter must be a void pointer, but can be casted inside the function.
+	 */
 	void setArgument(void* param);
 
-	void* getArgument() const;
+	/*
+	 * Returns the argument as a const void pointer.
+	 */
+	const void* getArgument() const;
 
 	/*
 	 * Begins the execution of this thread.
@@ -154,8 +164,11 @@ public:
 	/*
 	 * Cancels this thread.
 	 * NOTE: Please don't use this! Use cross-thread communication (like a bool or something) instead. :-)
+	 *
+	 * Parameters:
+	 *	force = forcefully terminates the thread by signalling SIGTERM.
 	 */
-	void terminate();
+	void terminate(bool force = false);
 
 	/*
 	 * Waits for this thread to complete it's execution, and then resumes the parent thread.
@@ -192,6 +205,8 @@ public:
 
 	/*
 	 * Sleeps the current thread for a specified time (in milliseconds).
+	 *
+	 * NOTE: This function is thread-independent.
 	 */
 	static void sleep(unsigned long milliseconds);
 
