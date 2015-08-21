@@ -154,9 +154,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\EasyMutex.cpp" />
     <ClCompile Include="..\src\EasyThread.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\EasyMutex.hpp" />
     <ClInclude Include="..\include\EasyThread.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

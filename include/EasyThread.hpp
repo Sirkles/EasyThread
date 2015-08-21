@@ -243,4 +243,4 @@ typedef struct tagTHREADNAME_INFO
 EASYTHREAD_C_API void SetThreadName(DWORD dwThreadID, const char* threadName);
 #endif
 
-#endif
+#endif // defined(EASY_THREAD_H_)

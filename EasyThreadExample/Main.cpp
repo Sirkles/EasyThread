@@ -25,6 +25,9 @@
 
 #include <iostream>
 
+#include <assert.h>
+#include <stdlib.h>
+
 void* testFunction(void* param)
 {
 	unsigned long milliseconds = (unsigned long)(param);
@@ -37,6 +40,8 @@ void* testFunction(void* param)
 
 int main(int argc, char* argv[])
 {
+	assert(system(NULL));
+
 	EasyThread* easyThread = new EasyThread();
 
 	easyThread->setFunction(testFunction);
